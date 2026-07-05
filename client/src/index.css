@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #82aeb1;
+  --color-secondary: #93c6d6;
+  --color-accent: #a7acd9;
+  --color-muted-accent: #9e8fb2;
+  --color-deep-teal: #668586;
+}
+
+:root {
+  /* Core brand palette */
+  --bg-main: hsl(195, 22%, 6%);
+  --bg-surface: hsl(195, 20%, 9%);
+  --bg-card: hsl(195, 18%, 12%);
+  --border-soft: rgba(147, 198, 214, 0.14);
+
+  --text-main: #f8fafc;
+  --text-muted: #9fb3c8;
+
+  --primary: #82aeb1;
+  --primary-hover: #93c6d6;
+  --secondary: #a7acd9;
+  --accent: #9e8fb2;
+
+  /* Palette-derived neutral scale (replaces generic slate grays) */
+  --text-primary: hsl(200, 25%, 96%);
+  --text-secondary: hsl(200, 18%, 78%);
+  --text-tertiary: hsl(200, 14%, 62%);
+  --text-quaternary: hsl(200, 12%, 46%);
+
+  --bg-elevated: hsl(195, 16%, 16%);
+  --bg-elevated-soft: hsl(195, 16%, 16%);
+  --border-neutral: hsla(195, 15%, 55%, 0.16);
+  --border-neutral-strong: hsla(195, 15%, 55%, 0.3);
+
+  /* Themed danger/warning tone, tuned to sit inside the same muted, desaturated
+     family as the rest of the palette (similar saturation/lightness range) */
+  --danger: hsl(350, 42%, 58%);
+  --danger-hover: hsl(350, 48%, 68%);
+  --danger-bg: hsla(350, 42%, 58%, 0.1);
+  --danger-bg-hover: hsla(350, 42%, 58%, 0.18);
+  --danger-border: hsla(350, 42%, 58%, 0.2);
+  --danger-border-hover: hsla(350, 42%, 58%, 0.35);
+  --danger-text: hsl(350, 55%, 78%);
+  --danger-text-hover: hsl(350, 62%, 86%);
+  --danger-bg-solid: hsl(350, 32%, 13%);
+
+  /* Shared easing for smoother, more premium motion */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(130, 174, 177, 0.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(167, 172, 217, 0.16), transparent 30%),
+    var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.7);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(130, 174, 177, 0.35);
+  border-radius: 4px;
+  transition: background 0.3s var(--ease-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(147, 198, 214, 0.65);
+}
+
+/* Custom global animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s var(--ease-out-soft) forwards;
+}
+
+/* Themed pulse-glow for status indicators (e.g. "Processing" states),
+   replaces generic opacity pulse with a soft colored glow that matches
+   the palette */
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(130, 174, 177, 0.35);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(130, 174, 177, 0);
+    opacity: 0.75;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 1.8s var(--ease-smooth) infinite;
+}
+
+/* Glassmorphism panels */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.35s var(--ease-smooth), box-shadow 0.35s var(--ease-smooth);
+}
+
+/* Reusable gradient */
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    #668586,
+    #82aeb1,
+    #93c6d6,
+    #a7acd9
+  );
+}
+
+.text-brand-gradient {
+  background: linear-gradient(
+    135deg,
+    #82aeb1,
+    #93c6d6,
+    #a7acd9
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

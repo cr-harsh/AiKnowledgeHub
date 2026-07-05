@@ -1,0 +1,18 @@
+# Node
+**/node_modules
+client/dist
+
+# Python
+**/.venv
+**/__pycache__
+*.pyc
+
+# Environment
+**/.env
+
+# Runtime generated folders
+server/uploads/*
+!server/uploads/.gitkeep
+
+ai-service/vectors/*
+!ai-service/vectors/.gitkeep

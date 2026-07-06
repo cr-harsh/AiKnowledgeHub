@@ -3,6 +3,7 @@ uvicorn
 langchain
 langchain-groq
 langchain-core
+langchain-text-splitters
 python-dotenv
 pydantic
 pypdf

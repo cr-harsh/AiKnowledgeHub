@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import UploadZone from '../components/UploadZone';
 import DocumentCard from '../components/DocumentCard';
 import { documentService } from '../services/documentService';
@@ -86,10 +86,8 @@ const Dashboard = () => {
   const readyCount = documents.filter((d) => d.status === 'Ready').length;
 
   return (
-    <div className="flex h-screen bg-[var(--bg-main)] text-[var(--text-primary)] overflow-hidden">
-      <Sidebar />
-
-      <main className="flex-1 overflow-y-auto p-8 relative">
+    <Layout className="overflow-y-auto">
+      <main className="p-4 md:p-8 relative">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#82aeb1]/5 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto animate-fade-in relative z-10">
@@ -145,7 +143,7 @@ const Dashboard = () => {
           )}
         </div>
       </main>
-    </div>
+    </Layout>
   );
 };
 

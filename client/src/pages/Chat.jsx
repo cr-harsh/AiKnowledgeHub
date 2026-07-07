@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { chatService } from '../services/documentService';
 
 const CHAT_ACTIONS = [
@@ -150,13 +150,11 @@ const Chat = () => {
   if (!user) return null;
 
   return (
-    <div className="flex h-screen bg-[var(--bg-main)] text-[var(--text-primary)] overflow-hidden">
-      <Sidebar />
-
+    <Layout className="flex flex-col overflow-hidden">
       <main className="flex-1 flex flex-col overflow-hidden relative">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#82aeb1]/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="border-b border-[#82aeb1]/15 px-6 py-4 flex items-center justify-between shrink-0 bg-[var(--bg-main)]/80 backdrop-blur-md z-10">
+        <div className="border-b border-[#82aeb1]/15 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between shrink-0 bg-[var(--bg-main)]/80 backdrop-blur-md z-10">
           <div className="flex items-center gap-4 min-w-0">
             <Link
               to="/dashboard"
@@ -167,7 +165,7 @@ const Chat = () => {
               </svg>
             </Link>
             <div className="min-w-0">
-              <h1 className="text-lg font-bold text-white truncate">
+              <h1 className="text-base md:text-lg font-bold text-white truncate">
                 {loading ? 'Loading...' : document?.title || 'Document Chat'}
               </h1>
               {document?.summary && (
@@ -186,7 +184,7 @@ const Chat = () => {
           )}
         </div>
 
-        <div className="px-6 py-3 border-b border-[#82aeb1]/10 flex gap-2 overflow-x-auto shrink-0">
+        <div className="px-4 md:px-6 py-2.5 md:py-3 border-b border-[#82aeb1]/10 flex gap-2 overflow-x-auto shrink-0">
           {CHAT_ACTIONS.filter((a) => !a.needsInput).map((action) => (
             <button
               key={action.mode}
@@ -200,7 +198,7 @@ const Chat = () => {
           ))}
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+        <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 md:space-y-6">
           {loading ? (
             <div className="flex justify-center py-16">
               <div className="w-10 h-10 border-2 border-[#82aeb1]/30 border-t-[#93c6d6] rounded-full animate-spin" />
@@ -230,7 +228,7 @@ const Chat = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        <form onSubmit={handleSubmit} className="border-t border-[#82aeb1]/15 px-6 py-4 shrink-0 bg-[var(--bg-main)]/80 backdrop-blur-md">
+        <form onSubmit={handleSubmit} className="border-t border-[#82aeb1]/15 px-4 md:px-6 py-3 md:py-4 shrink-0 bg-[var(--bg-main)]/80 backdrop-blur-md">
           <div className="flex gap-3 max-w-4xl mx-auto">
             <input
               type="text"
@@ -243,14 +241,14 @@ const Chat = () => {
             <button
               type="submit"
               disabled={sending || !question.trim() || document?.status !== 'Ready'}
-              className="px-6 py-3 bg-gradient-to-r from-[#668586] via-[#82aeb1] to-[#93c6d6] hover:from-[#82aeb1] hover:to-[#a7acd9] text-white rounded-xl text-sm font-semibold transition shadow-lg shadow-[#82aeb1]/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 md:px-6 py-3 bg-gradient-to-r from-[#668586] via-[#82aeb1] to-[#93c6d6] hover:from-[#82aeb1] hover:to-[#a7acd9] text-white rounded-xl text-sm font-semibold transition shadow-lg shadow-[#82aeb1]/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Send
             </button>
           </div>
         </form>
       </main>
-    </div>
+    </Layout>
   );
 };
 

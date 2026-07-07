@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
-const Sidebar = () => {
+const Sidebar = ({ onCloseMobile, isMobile }) => {
   const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    onCloseMobile?.();
     logout();
     navigate('/login');
   };
@@ -16,20 +17,35 @@ const Sidebar = () => {
   return (
     <aside className="w-64 bg-[var(--bg-main)] border-r border-[#82aeb1]/15 flex flex-col h-screen shrink-0 text-[var(--text-secondary)]">
       {/* Brand Header */}
-      <div className="p-6 border-b border-[#82aeb1]/15 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#668586] via-[#82aeb1] to-[#93c6d6] flex items-center justify-center text-white font-bold text-lg shadow-md shadow-[#82aeb1]/25">
-          A
+      <div className="p-6 border-b border-[#82aeb1]/15 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#668586] via-[#82aeb1] to-[#93c6d6] flex items-center justify-center text-white font-bold text-lg shadow-md shadow-[#82aeb1]/25">
+            A
+          </div>
+          <div>
+            <h1 className="text-md font-bold text-white leading-tight">AI Knowledge</h1>
+            <p className="text-[10px] text-[var(--text-tertiary)] font-semibold tracking-wide uppercase">Document Hub</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-md font-bold text-white leading-tight">AI Knowledge</h1>
-          <p className="text-[10px] text-[var(--text-tertiary)] font-semibold tracking-wide uppercase">Document Hub</p>
-        </div>
+
+        {isMobile && (
+          <button 
+            onClick={onCloseMobile}
+            className="text-[var(--text-secondary)] hover:text-white p-1 focus:outline-none cursor-pointer"
+            aria-label="Close menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* Navigation Links */}
       <nav className="flex-1 px-4 py-6 space-y-1.5">
         <NavLink
           to="/dashboard"
+          onClick={() => onCloseMobile?.()}
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition duration-200 ${
               isActive
@@ -46,6 +62,7 @@ const Sidebar = () => {
 
         <NavLink
           to="/profile"
+          onClick={() => onCloseMobile?.()}
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition duration-200 ${
               isActive
